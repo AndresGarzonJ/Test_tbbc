@@ -17,6 +17,7 @@ VirtualEnv -> https://pypi.org/project/virtualenv/
 	ALTER ROLE admin_tbbc SET default_transaction_isolation TO 'read committed';
 	ALTER ROLE admin_tbbc SET timezone TO 'UTC';
 	GRANT ALL PRIVILEGES ON DATABASE tbbc TO admin_tbbc;
+	\q
 
 ---------------- Clonación del Repositorio ---------------- 
 1. Abrir una terminal y ejecutar
@@ -38,7 +39,11 @@ VirtualEnv -> https://pypi.org/project/virtualenv/
 	python manage.py migrate
 	python manage.py makemigrations
 	python manage.py makemigrations api
+	python manage.py migrate
+	
+	python manage.py createsuperuser
 
+	
 
 2. Iniciar el servidor (LOCAL)
 
@@ -55,5 +60,18 @@ VirtualEnv -> https://pypi.org/project/virtualenv/
 3. Iniciar el servidor en DigitalOcean
 	https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-16-04#create-and-configure-a-new-django-project
 
+	# Abrir ~/myprojectdir/myproject/settings.py
+	ALLOWED_HOSTS = ['your_server_domain_or_IP', 'second_domain_or_IP', . . ., 'localhost']
+	# Añadir al final
+	import os
+	STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+	# En la terminal de DigitalOcean
 	pip install gunicorn
 	
+	cd test_tbbc
+	python manage.py collectstatic
+	sudo ufw allow 8000
+	python manage.py runserver 0.0.0.0:8000
+	http://server_domain_or_IP:8000
+
