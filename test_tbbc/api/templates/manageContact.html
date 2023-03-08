@@ -1,0 +1,78 @@
+{% extends "./template.html" %} 
+{% block title %} Manage of Contact {% endblock %} 
+{% block body %}
+<div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-dismissible alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong class="text-dark">{{ message }}</strong>
+        </div>
+        {% endfor %} 
+        {% endif %}
+        <h2>Manage of Contacts</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="/registerContact/" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" id="txtName" name="txtName" class="form-control" placeholder="Name" minlength="1" required />
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="txtPhoneNumber" name="txtPhoneNumber" class="form-control" placeholder="Phone number" minlength="10" pattern="[0-9]+" required />
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="txtEmail" name="txtEmail" class="form-control" placeholder="Email" maxlength="75" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" required />
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block text-white">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+        <br />
+        <form action="" method="GET" class="card card-sm">
+            <div class="card-body row no-gutters align-items-center">
+                <div class="col-auto">
+                    <i class="fas fa-search h4 text-body"></i>
+                </div>
+                <div class="col">
+                    <input class="form-control form-control-lg form-control-borderless" type="text" name="search" placeholder="Search by name or phone number" />
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-lg btn-success" type="submit">Search</button>
+                </div>
+            </div>
+        </form>
+        <h1>List Contacts</h1>
+        <div class="table-responsive py-2">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th colspan="2">Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in contacts %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{c.name}}</td>
+                        <td>{{c.phoneNumber}}</td>
+                        <td>{{c.email}}</td>
+                        <td><a href="editingContact/{{c.id}}" class="btn btn-info">Edit</a></td>
+                        <td><a href="deleteContact/{{c.id}}" class="btn btn-danger btnDelete">Delete</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

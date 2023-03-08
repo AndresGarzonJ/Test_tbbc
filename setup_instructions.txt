@@ -1,0 +1,47 @@
+---------------- Requisitos previos ---------------- 
+
+git version 2.39.0.windows.2
+Python 3.9 
+VirtualEnv -> https://pypi.org/project/virtualenv/
+Mysql  Ver 8.0.32 
+
+---------------- Configuracion de base de datos ---------------- 
+
+1. Abrir una terminal e ingresar al CLI de MySQL, ejecutando:
+	mysql -h <nombre_servidor> -u <nombre_usuario> -p
+
+	Ejemplo:
+		mysql -h localhost -u root -p
+
+	# Crear la base de datos "tbbc"
+    CREATE DATABASE tbbc;
+
+	# Crear el usuario "admin_tbbc"
+    CREATE USER 'admin_tbbc'@'localhost' IDENTIFIED BY '123456';
+
+	# Asignar los permisos al usuario "admin_tbbc"
+    GRANT ALL PRIVILEGES ON tbbc.* TO 'admin_tbbc'@'localhost';
+
+
+---------------- Clonación del Repositorio ---------------- 
+1. Abrir una terminal y ejecutar
+	git clone https://gitlab.com/AndresGarzonJ/test_tbbc.git
+	cd test_tbbc
+	python -m venv v_enviroment
+	.\v_environment\Scripts\activate
+	pip install -r requirements.txt
+
+	# Migracion de la base de datos
+	cd test_tbbc
+	python manage.py migrate
+	python manage.py makemigrations
+	python manage.py makemigrations api
+
+	# Correr el Servidor
+	python manage.py runserver
+
+	[Opcional - Para ingresar al Gestor por defecto de Django http://localhost:8000/admin]
+	python manage.py createsuperuser
+
+2. Abrir el navegador e ingresar a http://localhost:8000/
+	
