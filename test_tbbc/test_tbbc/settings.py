@@ -77,15 +77,12 @@ WSGI_APPLICATION = 'test_tbbc.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'tbbc',
         'USER': 'admin_tbbc',
         'PASSWORD': '123456',
-        'NAME': 'tbbc',
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
-        }
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
