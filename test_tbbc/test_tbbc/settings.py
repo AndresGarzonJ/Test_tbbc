@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'test_tbbc.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'tbbc',
         'USER': 'admin_tbbc',
         'PASSWORD': '123456',
